@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build addon and example
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: Storybook 10
+            storybook: latest
+          - name: Storybook 11 (prerelease)
+            storybook: next
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install
+      - run: npm run build
+      - name: Install the example
+        working-directory: example
+        run: npm install
+      - name: Pin Storybook ${{ matrix.storybook }}
+        if: matrix.storybook == 'next'
+        working-directory: example
+        run: npm install --legacy-peer-deps storybook@next @storybook/react-webpack5@next @storybook/addon-docs@next @storybook/addon-links@next
+      - name: Build the example Storybook
+        working-directory: example
+        run: npm run build-storybook

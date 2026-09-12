@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components"
-import renderFn from "../../../render-fn/styled-components"
+import renderFn from "storybook-amp/render-fn/styled-components"
 
 const Component = ({ className }) => (
   <amp-accordion class={className} animate="">

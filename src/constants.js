@@ -1,4 +1,4 @@
-export const ADDON_ID = "prototypearea/storybook-amp";
+export const ADDON_ID = "storybook-amp";
 
 export const PANEL_ID = `${ADDON_ID}/panel`;
 export const PANEL_TITLE = "AMP";
@@ -7,11 +7,11 @@ export const PARAM_KEY = "amp";
 
 export const EVENTS = {
   RESULT: `${ADDON_ID}/result`,
-  VALIDATION: `${ADDON_ID}/validation`,
 };
 
 export const DEFAULT_STATE = {
+  storyId: null,
   isValid: undefined,
-  type: "amp",
+  type: "amphtml",
   html: null,
 };
