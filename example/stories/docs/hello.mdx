@@ -1,31 +1,25 @@
-import { Canvas, Meta, Story } from "@storybook/addon-docs";
+import { Meta } from "@storybook/addon-docs/blocks";
 import LinkTo from "@storybook/addon-links/react";
-
-import LogoUrl from "../../public/amp-logo.png";
 
 <Meta
   title="Storybook AMP addon"
   id="hello"
   parameters={{
-    viewport: {
-      defaultViewport: "responsive",
-    },
     amp: {
       isEnabled: false,
     },
-    previewTabs: {
-      canvas: {
-        title: "Docs",
-      },
-    },
-    options: {
-      isToolshown: false,
-      showPanel: false,
-    },
+  }}
+  globals={{
+    viewport: { value: undefined },
   }}
 />
 
-<img src={LogoUrl} style={{ float: "left", width: 80, marginRight: 20 }} />
+<img
+  src="./amp-logo.png"
+  alt="AMP logo"
+  style={{ float: "left", width: 80, marginRight: 20 }}
+/>
+
 
 # Storybook AMP
 

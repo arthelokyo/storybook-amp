@@ -1,6 +1,5 @@
 [build]
-  publish = ".netlify"
-  command = "npm run build"
+  publish = "example/storybook-static"
+  command = "npm install && npm run build && npm --prefix example install && npm --prefix example run build-storybook"
 [build.environment]
-  NODE_VERSION = "12.1.0"
-  NPM_VERSION = "6.9.0"
+  NODE_VERSION = "22"

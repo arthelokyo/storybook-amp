@@ -35,10 +35,6 @@ build/Release
 # Compiled directory
 dist/
 storybook-static/
-/render-fn
-
-# Package lock file
-package-lock.json
 
 # Dependency directories
 node_modules/

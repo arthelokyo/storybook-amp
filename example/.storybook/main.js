@@ -1,32 +1,35 @@
-module.exports = {
-  framework: {
-    name: '@storybook/react-webpack5',
-    options: {},
-  },
+/** @type {import('@storybook/react-webpack5').StorybookConfig} */
+const config = {
   stories: [
-    "../stories/docs/*.stories.(js|mdx)",
-    "../stories/components/websites/*.stories.(js|mdx)",
-    "../stories/components/email/*.stories.(js|mdx)",
-    "../stories/components/ads/*.stories.(js|mdx)",
-    "../stories/libraries/*.stories.(js|mdx)",
-    "../stories/addons/*.stories.(js|mdx)",
+    "../stories/docs/*.mdx",
+    "../stories/components/websites/*.stories.@(js|jsx)",
+    "../stories/components/email/*.stories.@(js|jsx)",
+    "../stories/components/ads/*.stories.@(js|jsx)",
+    "../stories/libraries/*.stories.@(js|jsx)",
+    "../stories/addons/*.stories.@(js|jsx)",
   ],
   addons: [
-    "../../preset.js",
-
-    "@storybook/addon-storysource",
+    "@storybook/addon-webpack5-compiler-swc",
+    "@storybook/addon-docs",
     "@storybook/addon-links",
 
-    "@storybook/addon-viewport",
-    {
-      name: "@storybook/addon-docs",
-    },
-    "@storybook/addon-controls",
-    "@storybook/addon-backgrounds",
-
-    "storybook-css-modules",
+    "storybook-amp",
   ],
-  features: {
-    postcss: false,
+  framework: {
+    name: "@storybook/react-webpack5",
+    options: {},
   },
+  staticDirs: ["../public"],
+  webpackFinal: (config) => ({
+    ...config,
+    resolve: {
+      ...config.resolve,
+      // The addon is linked with `file:..`, so keep the symlinked path and let
+      // React, styled-components and Emotion resolve to this example's single
+      // copy, exactly like a published install would.
+      symlinks: false,
+    },
+  }),
 };
+
+export default config;

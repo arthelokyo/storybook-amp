@@ -6,4 +6,4 @@ When contributing to this repository, please first discuss the change you wish t
 
 If you wish to contribute to this repository, please fork this repository, make the desired changes, and open a Pull requests to have your code reviewed and merged.
 
-Please note we have a [code of conduct](CODE_OF_CONDUCT.md), please follow it in all your interactions with the project.
+Please note we have a [code of conduct](https://github.com/arthelokyo/.github/blob/main/CODE_OF_CONDUCT.md), please follow it in all your interactions with the project.

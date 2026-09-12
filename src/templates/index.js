@@ -9,8 +9,12 @@ export {
 };
 
 export const getTemplateFn = (template) => {
+  // A custom template function renders plain AMP Html.
   if (typeof template === "function") {
-    return template;
+    return {
+      type: "amphtml",
+      templateFn: template,
+    };
   }
 
   switch (template) {

@@ -1,0 +1,34 @@
+{
+  "name": "storybook-amp-example",
+  "version": "4.0.0",
+  "private": true,
+  "description": "Example Storybook showcasing the storybook-amp addon",
+  "type": "module",
+  "scripts": {
+    "start": "npm run storybook",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
+  },
+  "author": {
+    "name": "Arthelokyo",
+    "email": "hello@arthelokyo.com",
+    "url": "https://github.com/arthelokyo"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@storybook/addon-docs": "^10.6.0",
+    "@storybook/addon-links": "^10.6.0",
+    "@storybook/addon-webpack5-compiler-swc": "^4.0.3",
+    "@storybook/react-webpack5": "^10.6.0",
+    "storybook": "^10.6.0",
+    "storybook-amp": "file:.."
+  },
+  "dependencies": {
+    "@emotion/cache": "^11.14.0",
+    "@emotion/react": "^11.14.0",
+    "@emotion/server": "^11.11.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "styled-components": "^6.1.19"
+  }
+}

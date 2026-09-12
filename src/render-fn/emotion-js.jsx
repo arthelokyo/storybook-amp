@@ -9,20 +9,9 @@ export default (storyFn, context) => {
   const cache = createCache({ key: "amp" });
   const { extractCritical } = createEmotionServer(cache);
 
-  const element = (
-    <CacheProvider value={cache}>{storyFn(context)}</CacheProvider>
-  );
+  const element = <CacheProvider value={cache}>{storyFn(context)}</CacheProvider>;
 
   const { html, css: styles } = extractCritical(renderToString(element));
 
-  console.log("Html !!!!");
-  console.log(html);
-
-  console.log("Styles !!!!");
-  console.log(styles);
-
-  return {
-    html,
-    styles,
-  };
+  return { html, styles };
 };

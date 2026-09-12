@@ -1,56 +1,55 @@
-import React, { useState, useEffect } from "react";
-import { useAddonState, useChannel } from "@storybook/api";
-import { Badge } from "@storybook/components";
-import { STORY_CHANGED } from "@storybook/core-events";
-import { TOOL_ID, ADDON_ID, EMPTY_STATE, EVENTS } from "./constants";
+import React, { useEffect, useState } from "react";
+import { useAddonState } from "storybook/manager-api";
+import { Badge } from "storybook/internal/components";
 
+import { ADDON_ID, DEFAULT_STATE } from "./constants";
 import getHtmlFormatForType from "./utils/getHtmlFormatForType";
+import { validate } from "./validator";
 
 export const Tool = () => {
-  const [state, setState] = useAddonState(ADDON_ID, EMPTY_STATE);
-  const { isValid, html, type } = state || {};
+  const [state] = useAddonState(ADDON_ID, DEFAULT_STATE);
+  const { html, type, storyId } = state || {};
 
-  const [value, setValue] = useState(undefined);
+  const [isValid, setIsValid] = useState(undefined);
 
   useEffect(() => {
-    if (typeof isValid === "undefined") {
-      setValue(undefined);
-    } else {
-      isValid(html, getHtmlFormatForType(type)).then((_) => {
-        setValue(_);
-      })
+    let cancelled = false;
+
+    if (!html) {
+      setIsValid(undefined);
+      return undefined;
     }
-  }, [isValid])
 
-  const emit = useChannel({
-    [STORY_CHANGED]: (_) => setState(EMPTY_STATE),
-    [EVENTS.RESULT]: (_) => setState(_),
-  });
+    validate(html, getHtmlFormatForType(type)).then(
+      (result) => {
+        if (!cancelled) setIsValid(result);
+      },
+      () => {
+        if (!cancelled) setIsValid(undefined);
+      }
+    );
 
-  if (typeof value === "undefined") {
+    return () => {
+      cancelled = true;
+    };
+  }, [html, type, storyId]);
+
+  if (typeof isValid === "undefined") {
     return null;
   }
 
   return (
-    <div style={{ display: "flex", alignItems: "center", padding: "0 8px" }}>
-      {value ? (
-        <Badge
-          key={TOOL_ID}
-          status="positive"
-          title="This Story is AMP Valid"
-          style={{ border: "1px solid" }}
-        >
-          AMP Valid
-        </Badge>) : (
-        <Badge
-          key={TOOL_ID}
-          status="negative"
-          title="This Story is AMP Invalid. To see details go to AMP Panel and click Validate"
-          style={{ border: "1px solid" }}
-        >
-          AMP Invalid
-        </Badge>
-      )}
+    <div
+      style={{ display: "flex", alignItems: "center", padding: "0 8px" }}
+      title={
+        isValid
+          ? "This story is valid AMP"
+          : "This story is invalid AMP. Open the AMP panel and click Validate for details."
+      }
+    >
+      <Badge status={isValid ? "positive" : "negative"}>
+        {isValid ? "AMP Valid" : "AMP Invalid"}
+      </Badge>
     </div>
   );
 };

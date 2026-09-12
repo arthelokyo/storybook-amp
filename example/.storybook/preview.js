@@ -1,24 +1,19 @@
-import React from "react"
+/** @type {import('@storybook/react-webpack5').Preview} */
+const preview = {
+  parameters: {
+    amp: {
+      isEnabled: true,
+      styles: "", // Custom AMP styles
+    },
 
-export const parameters = {
-  amp: {
-    isEnabled: true,
-    styles: '', // Custom AMP styles
-  },
-
-  viewport: {
-    defaultViewport: 'mobile1',
-  },
-  previewTabs: {
-    'storybook/docs/panel': {
-      hidden: true,
+    controls: {
+      disable: true,
     },
   },
-  controls: {
-    disable: true
-  },
-  options: {
-    isToolshown: true,
-    showPanel: true,
+
+  initialGlobals: {
+    viewport: { value: "mobile1", isRotated: false },
   },
 };
+
+export default preview;
